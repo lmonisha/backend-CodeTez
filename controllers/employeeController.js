@@ -140,6 +140,8 @@ module.exports.updateEmployee = async (req, res) => {
         models.Employee.update(updateData, filter).then((response) => {
             console.log('response for update----->', response)
             res.json({ status: 200, message: 'Details updated successfully!!', resultObj: response })
+        }).catch((error)=>{
+            console.error('Error sending email:', error);
         })
     } catch (err) {
         console.log('error-------', err)
@@ -159,6 +161,8 @@ module.exports.deleteEmployee = async (req, res) => {
         }).then(response => {
             console.log('response in delete---->', response)
             res.json({ status: 200, message: 'Details deleted successfully!!', resultObj: response })
+        }).catch((error)=>{
+            console.error('Error sending email:', error);
         })
     } catch (err) {
         console.log('error-------', err)
@@ -235,11 +239,13 @@ module.exports.updateSalary = async (req, res) => {
 
         const filter = {
             where: {
-                id: req.body.empId
+                empId: req.body.empId
             }
         }
 
         console.log('updateData----------------->', updateData)
+        console.log('filter----------------->', filter)
+
 
         models.SalaryDetail.update(updateData, filter).then((response) => {
             console.log('response for update----->', response)
@@ -247,6 +253,8 @@ module.exports.updateSalary = async (req, res) => {
                 status: 200,
                 message: 'Details updated successfully!!', resultObj: response
             })
+        }).catch((error)=>{
+            console.error('Error sending email:', error);
         })
     } catch (err) {
         console.log('error-------', err)
